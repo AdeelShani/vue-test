@@ -2,7 +2,11 @@
   <h1>Hallo</h1>
   <div v-if="error">{{ error }}</div>
   <div v-for="artwork in artworks" :key="artwork.id">
-    {{ artwork.title }}
+    {{ artwork.label }}:
+
+    {{ artwork.properties.Title }}
+    <br />
+    <br />
   </div>
 </template>
 
@@ -17,16 +21,14 @@ export default defineComponent({
 
     const loadData = async () => {
       try {
-        const data = await fetch("https://localhost:5001/api/fineart", {
-          mode: "no-cors",
-        });
+        const data = await fetch("https://localhost:5001/api/fineart");
         if (!data.ok) {
           throw Error("no data available");
         }
         artworks.value = await data.json();
       } catch (err) {
         error.value = err.message;
-        console.log(error.value);
+        console.log(error.value + " haha");
       }
     };
 
